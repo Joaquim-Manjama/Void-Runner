@@ -4,10 +4,11 @@ from scripts.background import Background
 from scripts.player import Player
 from scripts.space_object import Object_Behaviour
 from scripts.laser import Laser
-from scripts.file_manager import load_data, save_data, load_numbers, save_numbers, reset_files
+from scripts.file_manager import load_data, save_data, load_numbers, save_numbers, reset_files, ensure_void_runner_folder
 
 class Game:
     def __init__(self):
+        ensure_void_runner_folder()
         pygame.mixer.pre_init(44100, -16, 2, 512)
         pygame.init()
         self.screen = pygame.display.set_mode((640, 480))  # Set the window size
@@ -51,7 +52,7 @@ class Game:
         }
 
         pygame.display.set_icon(self.assets['player1'])
-        self.player_selected = int(load_data('player.txt'))
+        self.player_selected = int(load_data('player.txt')) if int(load_data('player.txt')) != 0 else 1 
         self.background = Background(self.assets['background'])
         self.orbs = Object_Behaviour(self.assets['orb'], type='orb', probability=0.005, speed=[2, 0], wait=[0, 180], bouncing=True)
         self.obstacles = Object_Behaviour(self.assets['obstacle'], type='obstacle', probability=0.01, speed=[2, 0], wait=[0, 0])

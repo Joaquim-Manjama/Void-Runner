@@ -16,6 +16,7 @@ def load_data(file ,list=False):
         else:
             return data
     except:
+        if file == 'music.txt' or file == 'sfx.txt': return "1"
         return "0"
 
 def save_data(file, data, list=False):
@@ -68,4 +69,10 @@ def reset_files():
     save_data('sfx.txt', str(1))
     save_data('player.txt', str(1))
     save_numbers('store.txt', [1, 0, 0, 0])
+
+def ensure_void_runner_folder():
+    """
+    Ensure the Void Runner data folder exists. If it does not, create it.
+    """
+    BASE_PATH.mkdir(parents=True, exist_ok=True)
 
