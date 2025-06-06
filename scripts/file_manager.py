@@ -7,13 +7,16 @@ SECRET_KEY = "nicoleismygirlfriend"
 
 def load_data(file ,list=False):
     path = BASE_PATH / f"{secret_letter(file)}.{get_hash(secret_letter(file))}.txt"
-    f = open(path, 'r')
-    data = f.read()
-    f.close()
-    if not list:
-        return decode(data)
-    else:
-        return data
+    try:
+        f = open(path, 'r')
+        data = f.read()
+        f.close()
+        if not list:
+            return decode(data)
+        else:
+            return data
+    except:
+        return "0"
 
 def save_data(file, data, list=False):
     path = BASE_PATH / f"{secret_letter(file)}.{get_hash(secret_letter(file))}.txt"
@@ -25,8 +28,10 @@ def save_data(file, data, list=False):
     f.close()
 
 
-def load_numbers(file):
+def load_numbers(file, list=False):
     data = load_data(file, True)
+    if list and data == "0":
+        return [1, 0, 0, 0]
     lines = data.strip().split('\n')
     return [int(decode(line)) for line in lines ]
 

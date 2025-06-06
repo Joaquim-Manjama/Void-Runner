@@ -543,7 +543,7 @@ class Game:
         buy_box = pygame.Rect(253, 380, 135, 99)
         rejection_sound = pygame.mixer.Sound(self.assets['rejected_sound'])
         kaching_sound = pygame.mixer.Sound(self.assets['kaching_sound'])
-        players = load_numbers('store.txt')
+        players = load_numbers('store.txt', True)
         page = 1
         to_buy = 0
         while running:
