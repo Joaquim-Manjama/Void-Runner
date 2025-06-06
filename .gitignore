@@ -1,4 +1,4 @@
-.exe
-.bat
-.spec
-build
+*.exe
+*.bat
+*.spec
+build/
