@@ -152,8 +152,8 @@ class Game:
                 pygame.draw.rect(self.screen, '#1a1b1c', store)
 
             self.screen.blit(self.assets['coin'], (10, 10))
-            self.draw_text(text=f"{self.coins}", size=16, pos=[45, 15], bold=True)
-            self.draw_text(text=f"HighScore: {self.high_score}", size=16, pos=[100, 150])
+            self.draw_text(text=self.coins, size=16, pos=[45, 15], bold=True)
+            self.draw_text(text="HighScore: "+str(self.high_score), size=16, pos=[100, 150])
             self.draw_text(text='Void Runner', size=60, colour='#aabbcc', pos=[100, 50], bold=True, underline=True)
             self.draw_text(text='Play', size=32, colour='#55bbcc', pos=[280, 220], bold=True, underline=True)
             self.draw_text(text='Options', size=32, colour='#ff00c8', pos=[260, 300], bold=True, underline=True)
@@ -190,19 +190,19 @@ class Game:
             if self.score > high_score:
                 self.draw_text(text='New High Score!', size=32, colour='#00eeff', pos=[10, 5], bold=True)  
             self.draw_text(text='Game Over!', size=50, pos=[150, 50], bold=True, underline=True)
-            self.draw_text(text=f"Score: {self.score}", size=20, pos=[50, 150])
-            self.draw_text(text=f"Orbs Collected:", size=20, pos=[50, 200])
-            self.draw_text(text=f"{orbs}", size=20, pos=[250, 200])
+            self.draw_text(text="Score: "+str(self.score), size=20, pos=[50, 150])
+            self.draw_text(text="Orbs Collected:", size=20, pos=[50, 200])
+            self.draw_text(text=str(orbs), size=20, pos=[250, 200])
             self.screen.blit(self.assets['orb'], (225, 205))
-            self.draw_text(text=f"+", size=20, pos=[400, 150])
-            self.draw_text(text=f"+", size=20, pos=[400, 200])
+            self.draw_text(text="+", size=20, pos=[400, 150])
+            self.draw_text(text="+", size=20, pos=[400, 200])
             self.screen.blit(self.assets['coin'], (420, 150))
             self.screen.blit(self.assets['coin'], (420, 200))
-            self.draw_text(text=f"{score_coins}", size=20, pos=[460, 151])
-            self.draw_text(text=f"{orb_coins}", size=20, pos=[460, 201])
-            self.draw_text(text=f"Total coins received: ", size=20, pos=[190, 300], bold=True, underline=True)
+            self.draw_text(text=str(score_coins), size=20, pos=[460, 151])
+            self.draw_text(text=(orb_coins), size=20, pos=[460, 201])
+            self.draw_text(text="Total coins received: ", size=20, pos=[190, 300], bold=True, underline=True)
             self.screen.blit(self.assets['coin'], (420, 300))
-            self.draw_text(text=f"{total}", size=20, pos=[460, 301], bold=True)
+            self.draw_text(text=str(total), size=20, pos=[460, 301], bold=True)
             self.draw_text(text="Press 'Space' to main menu...", size=20, pos=[160, 400], colour='#aabbcc', underline=True)    
 
             pygame.display.update()
@@ -318,7 +318,7 @@ class Game:
                 if self.sfx:
                     laser_sound.play().set_volume(0.4)
 
-            self.draw_text(text=f"Score: {self.score}", pos=[20, 20])
+            self.draw_text(text="Score: "+str(self.score), pos=[20, 20])
 
             #Collision with OBSTACLES and ROCKS
             if ((self.player.has_collided(self.obstacles.get_objects_rects())[0] or self.player.has_collided(self.rocks.get_objects_rects())[0]) and boost == 0) or self.player.pos[1] > 480 or (self.player.has_collided(self.laser.get_rects())[0] and self.laser.timer > 1800 and self.laser.timer <= 1860 ):
@@ -363,7 +363,7 @@ class Game:
 
             if twox > 0:
                 self.twox.display(self.screen)
-                self.draw_text(text=f"{twox//60 + 1}s", pos=[80, 80])
+                self.draw_text(text=str(twox//60 + 1)+"s", pos=[80, 80])
 
             #BOOSTER
             self.collision = self.player.has_collided(self.booster.get_objects_rects())
@@ -376,7 +376,7 @@ class Game:
 
             if boost > 0:
                 self.booster.display(self.screen)
-                self.draw_text(text=f"{boost//60 + 1}s", pos=[580, 400])
+                self.draw_text(text=str(boost//60 + 1) + "s", pos=[580, 400])
                 self.activate_boost()
             else:
                 self.deactivate_boost()
@@ -384,7 +384,7 @@ class Game:
             #Collision with ORBS
             if self.player.magnet > 0:
                 self.magnet.display(self.screen)
-                self.draw_text(text=f"{(self.player.magnet//60) + 1} s", pos=(550, 20))
+                self.draw_text(text=str(self.player.magnet//60 + 1) + "s", pos=(550, 20))
                 self.collision = self.player.has_collided_magnet(self.orbs.get_objects_rects())
             else:
                 self.collision = self.player.has_collided(self.orbs.get_objects_rects())
@@ -614,7 +614,7 @@ class Game:
             self.screen.blit(self.assets['back'], (10, 10))
             self.draw_text(size=40, text='Store', underline=True, colour='#aabbcc', bold=True, pos=[250, 10])
             self.screen.blit(self.assets['coin'], (500, 20))
-            self.draw_text(text=f"{self.coins}", bold=True, size=16, pos=[540, 25])
+            self.draw_text(text=str(self.coins), bold=True, size=16, pos=[540, 25])
 
             if page == 1:
                 self.screen.blit(self.assets['next'], (600, 220))
@@ -628,7 +628,7 @@ class Game:
             if to_buy:
                 self.screen.blit(self.assets['buy'], (253, 380))
                 self.screen.blit(self.assets['coin'], (275, 445))
-                self.draw_text(text=f"{(to_buy - 2)*250 + 500}", size=20, colour='black', pos=[310, 447], bold=True)
+                self.draw_text(text=str((to_buy - 2)*250 + 500), size=20, colour='black', pos=[310, 447], bold=True)
 
             self.background.update()
 
@@ -658,7 +658,7 @@ class Game:
                 self.draw_text(text='Owned', pos=[pos[0] + 30, 310], size=20, bold=True, colour='black')
             else:
                 self.screen.blit(self.assets['coin'], (pos[0] + 30, 310))
-                self.draw_text(text=f"{price}", size=20, bold=True, colour='black', pos=[pos[0] + 60, 312])
+                self.draw_text(text=str(price), size=20, bold=True, colour='black', pos=[pos[0] + 60, 312])
             
 
 
