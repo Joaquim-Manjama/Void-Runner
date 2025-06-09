@@ -11,7 +11,7 @@ class Game:
         ensure_void_runner_folder()
         pygame.mixer.pre_init(44100, -16, 2, 512)
         pygame.init()
-        self.screen = pygame.display.set_mode((640, 480))  # Set the window size
+        self.screen = pygame.display.set_mode((640, 480), pygame.SCALED|pygame.FULLSCREEN)  # Set the window size
         pygame.display.set_caption("Void Runner")
         self.clock = pygame.time.Clock()
 
@@ -131,6 +131,10 @@ class Game:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         self.run()
+                    
+                    if event.key == pygame.K_ESCAPE:
+                        pygame.quit()
+                        sys.exit()
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
@@ -152,7 +156,7 @@ class Game:
                 pygame.draw.rect(self.screen, '#1a1b1c', store)
 
             self.screen.blit(self.assets['coin'], (10, 10))
-            self.draw_text(text=self.coins, size=16, pos=[45, 15], bold=True)
+            self.draw_text(text=str(self.coins), size=16, pos=[45, 15], bold=True)
             self.draw_text(text="HighScore: "+str(self.high_score), size=16, pos=[100, 150])
             self.draw_text(text='Void Runner', size=60, colour='#aabbcc', pos=[100, 50], bold=True, underline=True)
             self.draw_text(text='Play', size=32, colour='#55bbcc', pos=[280, 220], bold=True, underline=True)
@@ -183,6 +187,9 @@ class Game:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         running = False
+                    
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    running = False
  
             self.background.render(self.screen)  # Render the background
             self.background.update()
@@ -199,11 +206,11 @@ class Game:
             self.screen.blit(self.assets['coin'], (420, 150))
             self.screen.blit(self.assets['coin'], (420, 200))
             self.draw_text(text=str(score_coins), size=20, pos=[460, 151])
-            self.draw_text(text=(orb_coins), size=20, pos=[460, 201])
-            self.draw_text(text="Total coins received: ", size=20, pos=[190, 300], bold=True, underline=True)
+            self.draw_text(text=str(orb_coins), size=20, pos=[460, 201])
+            self.draw_text(text="Total coins received: ", size=20, pos=[150, 300], bold=True, underline=True)
             self.screen.blit(self.assets['coin'], (420, 300))
             self.draw_text(text=str(total), size=20, pos=[460, 301], bold=True)
-            self.draw_text(text="Press 'Space' to main menu...", size=20, pos=[160, 400], colour='#aabbcc', underline=True)    
+            self.draw_text(text="Press to main menu...", size=20, pos=[200, 400], colour='#aabbcc', underline=True)    
 
             pygame.display.update()
             self.clock.tick(60)
